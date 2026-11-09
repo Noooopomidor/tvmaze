@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { prepareResults } from '../store/search/results'
 import {
   genreChanged,
   pageChanged,
@@ -6,7 +7,6 @@ import {
   retryRequested,
 } from '../store/search/slice'
 import type { SearchStatus } from '../store/search/types'
-import { prepareResults } from './searchResults'
 
 const getFeedback = (
   status: SearchStatus,

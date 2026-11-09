@@ -1,6 +1,7 @@
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
 import { searchShows } from '../../api/tvmaze/searchShows'
 import {
+  locationRestored,
   queryChanged,
   requestFailed,
   requestSucceeded,
@@ -13,12 +14,12 @@ export const searchListenerMiddleware = createListenerMiddleware<{
 }>()
 
 searchListenerMiddleware.startListening({
-  matcher: isAnyOf(queryChanged, retryRequested),
-  effect: async (action, listener) => {
+  matcher: isAnyOf(queryChanged, retryRequested, locationRestored),
+  effect: async (_action, listener) => {
     const previous = listener.getOriginalState().search
     const current = listener.getState().search
     const query = current.query.trim()
-    if (queryChanged.match(action) && query === previous.query.trim()) return
+    if (current.requestVersion === previous.requestVersion) return
 
     listener.cancelActiveListeners()
     if (!query) return

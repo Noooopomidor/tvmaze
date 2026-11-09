@@ -1,6 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import type { Show } from '../../api/tvmaze/types'
-import type { SearchState } from './types'
+import { restoreLocation } from './restoreLocation'
+import { prepareResults } from './results'
+import type { SearchLocation, SearchState } from './types'
 
 const initialState: SearchState = {
   query: '',
@@ -16,6 +18,9 @@ const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
+    locationRestored: (state, action: PayloadAction<SearchLocation>) => {
+      restoreLocation(state, action.payload)
+    },
     queryChanged: (state, action: PayloadAction<string>) => {
       const previousQuery = state.query.trim()
       state.query = action.payload
@@ -47,7 +52,14 @@ const searchSlice = createSlice({
       action: PayloadAction<{ requestVersion: number; shows: Show[] }>,
     ) => {
       if (state.requestVersion !== action.payload.requestVersion) return
+      const prepared = prepareResults(
+        action.payload.shows,
+        state.selectedGenre,
+        state.page,
+      )
       state.shows = action.payload.shows
+      state.selectedGenre = prepared.selectedGenre
+      state.page = prepared.page
       state.error = null
       state.status = 'success'
     },
@@ -64,6 +76,7 @@ const searchSlice = createSlice({
 })
 
 export const {
+  locationRestored,
   queryChanged,
   genreChanged,
   pageChanged,

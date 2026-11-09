@@ -11,3 +11,8 @@ export type SearchState = {
   error: string | null
   requestVersion: number
 }
+
+export type SearchLocation = Pick<
+  SearchState,
+  'query' | 'selectedGenre' | 'page'
+>
