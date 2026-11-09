@@ -11,6 +11,14 @@ npm run dev
 
 Откройте адрес, который напечатает Vite (обычно `http://localhost:5173`). Для запросов и постеров нужен доступ к интернету.
 
+## GitHub Pages
+
+Адрес сайта: [Showroom на GitHub Pages](https://noooopomidor.github.io/tvmaze/). Пример прямой ссылки с запросом, жанром и страницей: [Girls / Comedy / страница 2](https://noooopomidor.github.io/tvmaze/?q=Girls&genre=Comedy&page=2).
+
+GitHub Actions публикует приложение при изменениях ветки `main`. Публикацию также можно запустить вручную: откройте вкладку **Actions**, выберите workflow публикации и нажмите **Run workflow**.
+
+Production-сборка использует базовый путь `/tvmaze/`; локальный `npm run dev` работает от `/`.
+
 ## Как работает поиск
 
 - Заголовок Showroom и поле поиска видны всегда. При открытии страницы без `q` в URL список пуст, запросы не отправляются.
