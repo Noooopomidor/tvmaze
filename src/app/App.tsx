@@ -4,16 +4,7 @@ import { SearchField } from './SearchField/SearchField'
 import { usePresenter } from './usePresenter'
 
 const App = () => {
-  const {
-    isActive,
-    query,
-    isLoading,
-    showResults,
-    feedback,
-    results,
-    handleQueryChange,
-    retry,
-  } = usePresenter()
+  const { isActive, isLoading, showResults, showFeedback } = usePresenter()
 
   return (
     <div className="relative isolate mx-auto flex min-h-svh w-full max-w-7xl flex-col px-5 pt-8 sm:px-12 sm:pt-12">
@@ -41,16 +32,12 @@ const App = () => {
             <span className="text-fuchsia-400">.</span>
           </h1>
         </div>
-        <SearchField
-          value={query}
-          onValueChange={handleQueryChange}
-          isLoading={isLoading}
-        />
+        <SearchField />
       </header>
       {isActive && (
         <main className="flex-1 py-8 sm:py-10" aria-busy={isLoading}>
-          {feedback && <Feedback {...feedback} onRetry={retry} />}
-          {showResults && <Results {...results} />}
+          {showFeedback && <Feedback />}
+          {showResults && <Results />}
         </main>
       )}
       {isActive && (

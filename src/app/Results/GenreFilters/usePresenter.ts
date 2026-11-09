@@ -1,15 +1,23 @@
-import type { GenreFiltersProps } from './types'
+import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import {
+  selectGenres,
+  selectSelectedGenre,
+} from '../../../store/search/selectors'
+import { genreChanged } from '../../../store/search/slice'
 
-export const usePresenter = (props: GenreFiltersProps) => {
-  const genres = [null, ...props.genres]
+export const usePresenter = () => {
+  const dispatch = useAppDispatch()
+  const genres = useAppSelector(selectGenres)
+  const selectedGenre = useAppSelector(selectSelectedGenre)
+  const options = [null, ...genres]
 
   return {
-    options: genres.map((genre) => ({
+    options: options.map((genre) => ({
       id: genre ?? 'all',
       label: genre ?? 'Все жанры',
-      isSelected: genre === props.selectedGenre,
+      isSelected: genre === selectedGenre,
       onClick: () =>
-        props.onGenreChange(genre === props.selectedGenre ? null : genre),
+        dispatch(genreChanged(genre === selectedGenre ? null : genre)),
     })),
   }
 }

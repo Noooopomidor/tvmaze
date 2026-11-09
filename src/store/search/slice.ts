@@ -38,7 +38,11 @@ const searchSlice = createSlice({
       state.page = 1
     },
     pageChanged: (state, action: PayloadAction<number>) => {
-      state.page = Math.max(1, action.payload)
+      state.page = prepareResults(
+        state.shows,
+        state.selectedGenre,
+        action.payload,
+      ).page
     },
     retryRequested: (state) => {
       if (!state.query.trim()) return

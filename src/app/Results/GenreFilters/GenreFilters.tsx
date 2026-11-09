@@ -1,9 +1,8 @@
 import { Button } from '../../ui-kit/Button/Button'
-import type { GenreFiltersProps } from './types'
 import { usePresenter } from './usePresenter'
 
-export const GenreFilters = (props: GenreFiltersProps) => {
-  const { options } = usePresenter(props)
+export const GenreFilters = () => {
+  const { options } = usePresenter()
 
   return (
     <fieldset

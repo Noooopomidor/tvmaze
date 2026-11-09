@@ -1,24 +1,23 @@
-import type { ResultsProps } from './types'
+import { useAppSelector } from '../../store/hooks'
+import { PAGE_SIZE } from '../../store/search/results'
+import {
+  selectPreparedResults,
+  selectQuery,
+} from '../../store/search/selectors'
 
-export const usePresenter = (props: ResultsProps) => {
+export const usePresenter = () => {
+  const query = useAppSelector(selectQuery)
+  const { shows, page, totalCount, totalResults } = useAppSelector(
+    selectPreparedResults,
+  )
+
   return {
-    queryLabel: `«${props.query.trim()}»`,
-    countLabel: `${props.totalCount} из ${props.totalResults}`,
-    hasShows: props.shows.length > 0,
-    items: props.shows.map((show, index) => ({
+    queryLabel: `«${query.trim()}»`,
+    countLabel: `${totalCount} из ${totalResults}`,
+    hasShows: shows.length > 0,
+    items: shows.map((show, index) => ({
       show,
-      index: (props.page - 1) * 3 + index + 1,
+      index: (page - 1) * PAGE_SIZE + index + 1,
     })),
-    filterProps: {
-      genres: props.genres,
-      selectedGenre: props.selectedGenre,
-      onGenreChange: props.onGenreChange,
-    },
-    paginationProps: {
-      page: props.page,
-      totalPages: props.totalPages,
-      totalCount: props.totalCount,
-      onPageChange: props.onPageChange,
-    },
   }
 }

@@ -1,8 +1,7 @@
 import { Button } from '../../ui-kit/Button/Button'
-import type { PaginationProps } from './types'
 import { usePresenter } from './usePresenter'
 
-export const Pagination = (props: PaginationProps) => {
+export const Pagination = () => {
   const {
     isVisible,
     rangeLabel,
@@ -11,7 +10,7 @@ export const Pagination = (props: PaginationProps) => {
     onPrevious,
     onNext,
     pages,
-  } = usePresenter(props)
+  } = usePresenter()
 
   return (
     <>

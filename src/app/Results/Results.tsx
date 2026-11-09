@@ -1,18 +1,10 @@
 import { GenreFilters } from './GenreFilters/GenreFilters'
 import { Pagination } from './Pagination/Pagination'
 import { ShowCard } from './ShowCard/ShowCard'
-import type { ResultsProps } from './types'
 import { usePresenter } from './usePresenter'
 
-export const Results = (props: ResultsProps) => {
-  const {
-    queryLabel,
-    countLabel,
-    hasShows,
-    items,
-    filterProps,
-    paginationProps,
-  } = usePresenter(props)
+export const Results = () => {
+  const { queryLabel, countLabel, hasShows, items } = usePresenter()
 
   return (
     <section className="w-full" aria-label="Результаты поиска">
@@ -33,7 +25,7 @@ export const Results = (props: ResultsProps) => {
           <span className="text-xs text-slate-400">шоу в подборке</span>
         </p>
       </div>
-      <GenreFilters {...filterProps} />
+      <GenreFilters />
       {hasShows ? (
         <ul className="mt-8 mb-10 grid list-none grid-cols-1 gap-9 p-0 md:grid-cols-3 md:gap-5 lg:gap-8">
           {items.map((item) => (
@@ -47,7 +39,7 @@ export const Results = (props: ResultsProps) => {
           В этом жанре пока ничего нет. Попробуйте другой.
         </p>
       )}
-      <Pagination {...paginationProps} />
+      <Pagination />
     </section>
   )
 }

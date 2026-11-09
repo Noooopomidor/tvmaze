@@ -6,14 +6,18 @@ export const normalizePage = (page: number) => {
   return Number.isSafeInteger(page) && page > 0 ? page : 1
 }
 
+export const getGenres = (shows: Show[]) => {
+  return [...new Set(shows.flatMap((show) => show.genres))].sort((a, b) =>
+    a.localeCompare(b),
+  )
+}
+
 export const prepareResults = (
   shows: Show[],
   genre: string | null,
   page: number,
 ) => {
-  const genres = [...new Set(shows.flatMap((show) => show.genres))].sort(
-    (a, b) => a.localeCompare(b),
-  )
+  const genres = getGenres(shows)
   const requestedGenre = genre?.trim().toLowerCase()
   const selectedGenre =
     genres.find((value) => value.trim().toLowerCase() === requestedGenre) ??

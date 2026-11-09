@@ -1,8 +1,7 @@
 import { Button } from '../ui-kit/Button/Button'
-import type { SearchFieldProps } from './types'
 import { usePresenter } from './usePresenter'
 
-export const SearchField = (props: SearchFieldProps) => {
+export const SearchField = () => {
   const {
     id,
     inputRef,
@@ -12,7 +11,7 @@ export const SearchField = (props: SearchFieldProps) => {
     handleChange,
     handleClear,
     handleKeyDown,
-  } = usePresenter(props)
+  } = usePresenter()
 
   return (
     <search className="flex h-16 w-full items-center gap-3 rounded-2xl border border-cyan-400/30 bg-slate-900/80 px-4 shadow-lg shadow-cyan-500/10 transition-shadow duration-150 ease-in-out focus-within:border-cyan-300 focus-within:shadow-cyan-400/30 focus-within:ring-4 focus-within:ring-cyan-400/20 motion-reduce:transition-none sm:h-20 sm:gap-4 sm:px-6">

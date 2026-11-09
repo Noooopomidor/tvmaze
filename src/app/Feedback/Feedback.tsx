@@ -1,8 +1,7 @@
 import { Button } from '../ui-kit/Button/Button'
-import type { FeedbackProps } from './types'
 import { usePresenter } from './usePresenter'
 
-export const Feedback = (props: FeedbackProps) => {
+export const Feedback = () => {
   const {
     title,
     message,
@@ -12,7 +11,7 @@ export const Feedback = (props: FeedbackProps) => {
     role,
     skeletonClassName,
     secondarySkeletonClassName,
-  } = usePresenter(props)
+  } = usePresenter()
 
   return (
     <section role={role} aria-live="polite">

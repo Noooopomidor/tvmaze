@@ -1,18 +1,23 @@
 import { type ChangeEvent, type KeyboardEvent, useId, useRef } from 'react'
-import type { SearchFieldProps } from './types'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { selectIsLoading, selectQuery } from '../../store/search/selectors'
+import { queryChanged } from '../../store/search/slice'
 
-export const usePresenter = (props: SearchFieldProps) => {
+export const usePresenter = () => {
+  const dispatch = useAppDispatch()
+  const value = useAppSelector(selectQuery)
+  const isLoading = useAppSelector(selectIsLoading)
   const id = useId()
   const inputRef = useRef<HTMLInputElement>(null)
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    props.onValueChange(event.currentTarget.value)
+    dispatch(queryChanged(event.currentTarget.value))
   }
   const handleClear = () => {
-    props.onValueChange('')
+    dispatch(queryChanged(''))
     inputRef.current?.focus()
   }
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Escape' && props.value) {
+    if (event.key === 'Escape' && value) {
       event.preventDefault()
       handleClear()
     }
@@ -21,9 +26,9 @@ export const usePresenter = (props: SearchFieldProps) => {
   return {
     id,
     inputRef,
-    value: props.value,
-    isLoading: props.isLoading,
-    showClear: props.value.length > 0,
+    value,
+    isLoading,
+    showClear: value.length > 0,
     handleChange,
     handleClear,
     handleKeyDown,
