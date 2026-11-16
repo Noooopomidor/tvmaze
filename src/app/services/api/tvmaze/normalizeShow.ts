@@ -1,4 +1,4 @@
-import { TvmazeError } from './errors'
+import { createTvmazeError } from './errors'
 import type { Show } from './types'
 
 export const asRecord = (value: unknown): Record<string, unknown> => {
@@ -40,9 +40,7 @@ export const normalizeShow = (value: unknown): Show => {
   const id = number(show.id)
   const name = text(show.name)
   if (id === null || !Number.isInteger(id) || id < 1 || !name) {
-    throw new TvmazeError(
-      'TVmaze вернул некорректные данные. Попробуйте ещё раз.',
-    )
+    throw createTvmazeError('invalid-response')
   }
   const genres = Array.isArray(show.genres)
     ? show.genres.map((genre) => text(genre)).filter(Boolean)
@@ -57,13 +55,12 @@ export const normalizeShow = (value: unknown): Show => {
     genres: [...new Set(genres)],
     summary: summary(show.summary),
     image: image(asRecord(show.image).medium),
-    year: /^\d{4}-/.test(premiered) ? premiered.slice(0, 4) : 'Год неизвестен',
+    year: /^\d{4}-/.test(premiered) ? premiered.slice(0, 4) : null,
     rating: number(asRecord(show.rating).average),
-    language: text(show.language, 'Язык не указан'),
-    network: text(
-      asRecord(show.network).name,
-      text(asRecord(show.webChannel).name),
-    ),
+    language: text(show.language) || null,
+    network:
+      text(asRecord(show.network).name, text(asRecord(show.webChannel).name)) ||
+      null,
     runtime: runtime !== null && runtime > 0 ? runtime : null,
     status: text(show.status, 'Unknown'),
   }

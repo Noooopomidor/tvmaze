@@ -5,10 +5,10 @@ export type Show = {
   genres: string[]
   summary: string
   image: string | null
-  year: string
+  year: string | null
   rating: number | null
-  language: string
-  network: string
+  language: string | null
+  network: string | null
   runtime: number | null
   status: string
 }

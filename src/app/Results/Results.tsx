@@ -1,7 +1,7 @@
 import { GenreFilters } from './GenreFilters/GenreFilters'
+import { usePresenter } from './logic/usePresenter'
 import { Pagination } from './Pagination/Pagination'
 import { ShowCard } from './ShowCard/ShowCard'
-import { usePresenter } from './usePresenter'
 
 export const Results = () => {
   const { queryLabel, countLabel, hasShows, items } = usePresenter()

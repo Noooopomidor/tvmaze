@@ -1,5 +1,6 @@
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
-import { searchShows } from '../../api/tvmaze/searchShows'
+import { isTvmazeError } from '../../services/api/tvmaze/errors'
+import { loadShows } from '../../tasks/loadShows'
 import {
   locationRestored,
   queryChanged,
@@ -27,7 +28,7 @@ searchListenerMiddleware.startListening({
 
     try {
       await listener.delay(350)
-      const shows = await searchShows(query, listener.signal)
+      const shows = await loadShows(query, listener.signal)
       listener.throwIfCancelled()
       listener.dispatch(requestSucceeded({ requestVersion, shows }))
     } catch (error) {
@@ -35,10 +36,7 @@ searchListenerMiddleware.startListening({
       listener.dispatch(
         requestFailed({
           requestVersion,
-          error:
-            error instanceof Error
-              ? error.message
-              : 'Не удалось загрузить шоу.',
+          error: isTvmazeError(error) ? error.code : 'network',
         }),
       )
     }

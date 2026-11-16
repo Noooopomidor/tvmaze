@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { ShowCardProps } from './types'
+import type { ShowCardProps } from '../types'
 
 export const usePresenter = (props: ShowCardProps) => {
   const [failedImage, setFailedImage] = useState<string | null>(null)
@@ -16,7 +16,10 @@ export const usePresenter = (props: ShowCardProps) => {
     number: String(props.index).padStart(2, '0'),
     hasRating: show.rating !== null,
     rating: show.rating?.toFixed(1) ?? '',
-    metadata: [show.year, show.network || show.language]
+    metadata: [
+      show.year ?? 'Год неизвестен',
+      show.network || show.language || 'Язык не указан',
+    ]
       .filter(Boolean)
       .join(' · '),
     genres: show.genres.join(' / ') || 'Без жанра',

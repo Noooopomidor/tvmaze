@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { PAGE_SIZE } from '../../../store/search/results'
 import { selectPagination } from '../../../store/search/selectors'
 import { pageChanged } from '../../../store/search/slice'
-import { tw } from '../../ui-kit/tw'
+import { tw } from '../../../ui-kit/tw'
 
 export const usePresenter = () => {
   const dispatch = useAppDispatch()

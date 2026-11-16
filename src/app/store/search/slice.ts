@@ -1,8 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import type { Show } from '../../api/tvmaze/types'
+import type { Show } from '../../services/api/tvmaze/types'
 import { restoreLocation } from './restoreLocation'
 import { prepareResults } from './results'
-import type { SearchLocation, SearchState } from './types'
+import type { SearchErrorCode, SearchLocation, SearchState } from './types'
 
 const initialState: SearchState = {
   query: '',
@@ -69,7 +69,7 @@ const searchSlice = createSlice({
     },
     requestFailed: (
       state,
-      action: PayloadAction<{ requestVersion: number; error: string }>,
+      action: PayloadAction<{ requestVersion: number; error: SearchErrorCode }>,
     ) => {
       if (state.requestVersion !== action.payload.requestVersion) return
       state.shows = []

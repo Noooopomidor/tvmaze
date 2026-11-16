@@ -1,7 +1,7 @@
 import type { Store } from 'redux'
-import { locationRestored } from './slice'
-import type { SearchState } from './types'
-import { getSearchUrl, readSearchLocation } from './url'
+import { locationRestored } from '../store/search/slice'
+import type { SearchState } from '../store/search/types'
+import { getSearchUrl, readSearchLocation } from './searchUrl'
 
 type SearchStore = Pick<
   Store<{ search: SearchState }>,

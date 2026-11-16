@@ -1,7 +1,7 @@
 import { Feedback } from './Feedback/Feedback'
+import { usePresenter } from './logic/usePresenter'
 import { Results } from './Results/Results'
 import { SearchField } from './SearchField/SearchField'
-import { usePresenter } from './usePresenter'
 
 const App = () => {
   const { isActive, isLoading, showResults, showFeedback } = usePresenter()

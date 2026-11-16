@@ -1,5 +1,5 @@
+import { usePresenter } from './logic/usePresenter'
 import type { ShowCardProps } from './types'
-import { usePresenter } from './usePresenter'
 
 export const ShowCard = (props: ShowCardProps) => {
   const {

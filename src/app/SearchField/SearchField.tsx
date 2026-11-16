@@ -1,5 +1,5 @@
 import { Button } from '../ui-kit/Button/Button'
-import { usePresenter } from './usePresenter'
+import { usePresenter } from './logic/usePresenter'
 
 export const SearchField = () => {
   const {
