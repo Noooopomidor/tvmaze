@@ -1,6 +1,8 @@
-import type { Show } from '../../api/tvmaze/types'
+import type { TvmazeErrorCode } from '../../services/api/tvmaze/errors'
+import type { Show } from '../../services/api/tvmaze/types'
 
 export type SearchStatus = 'idle' | 'loading' | 'success' | 'error'
+export type SearchErrorCode = TvmazeErrorCode
 
 export type SearchState = {
   query: string
@@ -8,7 +10,7 @@ export type SearchState = {
   page: number
   shows: Show[]
   status: SearchStatus
-  error: string | null
+  error: SearchErrorCode | null
   requestVersion: number
 }
 

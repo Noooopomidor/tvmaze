@@ -3,8 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import './index.css'
 import App from './app/App'
-import { store } from './store'
-import { syncSearchLocation } from './store/search/syncSearchLocation'
+import { syncSearchLocation } from './app/navigation/syncSearchLocation'
+import { store } from './app/store'
 
 const rootElement = document.getElementById('root')
 

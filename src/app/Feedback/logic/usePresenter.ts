@@ -5,7 +5,17 @@ import {
   selectQuery,
 } from '../../store/search/selectors'
 import { retryRequested } from '../../store/search/slice'
-import { tw } from '../ui-kit/tw'
+import type { SearchErrorCode } from '../../store/search/types'
+import { tw } from '../../ui-kit/tw'
+
+const errorMessages: Record<SearchErrorCode, string> = {
+  'rate-limit':
+    'TVmaze получает слишком много запросов. Подождите немного и повторите поиск.',
+  http: 'TVmaze временно недоступен. Попробуйте ещё раз.',
+  timeout: 'Поиск занял слишком много времени. Попробуйте ещё раз.',
+  network: 'Не удалось загрузить шоу. Проверьте соединение и повторите поиск.',
+  'invalid-response': 'TVmaze вернул некорректные данные. Попробуйте ещё раз.',
+}
 
 const skeletonClassName = tw(
   'aspect-2/3 max-h-96 animate-pulse rounded-2xl border border-cyan-900/50 bg-linear-to-br from-slate-900 via-violet-950/40 to-slate-900 motion-reduce:animate-none',
@@ -14,7 +24,7 @@ const skeletonClassName = tw(
 const getCopy = (
   kind: ReturnType<typeof selectFeedbackKind>,
   query: string,
-  error: string | null,
+  error: SearchErrorCode | null,
 ) => {
   if (kind === 'loading') {
     return {
@@ -25,7 +35,9 @@ const getCopy = (
   if (kind === 'error') {
     return {
       title: 'Небольшая пауза',
-      message: error || 'Не удалось получить шоу. Попробуйте ещё раз.',
+      message: error
+        ? errorMessages[error]
+        : 'Не удалось получить шоу. Попробуйте ещё раз.',
     }
   }
   return {

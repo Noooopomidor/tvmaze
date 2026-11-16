@@ -1,4 +1,4 @@
-import type { SearchLocation } from './types'
+import type { SearchLocation } from '../store/search/types'
 
 const parsePage = (value: string | null) => {
   if (!value || !/^\d+$/.test(value)) return 1
